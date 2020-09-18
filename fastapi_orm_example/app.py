@@ -10,7 +10,7 @@ from sqlalchemy.orm import joinedload
 from . import models, schemas
 from .database import SessionLocal, engine
 
-# Create the datatbase tables
+# Create the database tables
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -40,7 +40,7 @@ async def reset_db():
         db.commit()
 
         # Populate items table
-        users = db.query(models.User).filter()
+        users = db.query(models.User).all()
         for user in users:
             for i in range(20):
                 user_item = models.Item(title=f"Item{i}", description=f"Item{i} description", owner=user)
